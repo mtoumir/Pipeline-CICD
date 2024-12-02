@@ -1,5 +1,5 @@
 stages:
-  - install_npm _dependencies
+  - install_npm_dependencies
 
 build_job:
   stage: install_npm_dependencies
