@@ -37,3 +37,5 @@ docker_build_job:
   stage: docker_build
   script: 
     - docker build -t repo-name:$CI_COMMIT_SHA .
+  only:
+    - main
