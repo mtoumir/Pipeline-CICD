@@ -36,7 +36,13 @@ sonarcloud-check:
 
 docker_build_job:
   stage: docker_build
-  script: 
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_TLS_CERTDIR: ""
+  script:
     - docker build -t repo-name:$CI_COMMIT_SHA .
   only:
     - main
