@@ -3,7 +3,7 @@ stages:
   - sonarcloud_analysis
   - docker_build
   - trivy_scan
-
+  - push_to_Amazon_ECR
 
 variables:
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" 
@@ -40,7 +40,7 @@ sonarcloud-check:
 docker_build_job:
   stage: docker_build
   script: 
-    - docker build -t repo-name:$CI_COMMIT_SHA .
+    - docker build -t gitlabcicd00:latest .
   only:
     - main
   tags:
@@ -49,8 +49,20 @@ docker_build_job:
 image_scan_job:
   stage: trivy_scan
   script:
-    - docker run -v /var/run/docker.sock:/var/run/docker.sock -v $Home/Library/Caches:/root/.cache/ aquasec/trivy:0.57.0 image repo-name:$CI_COMMIT_SHA 
+    - docker run -v /var/run/docker.sock:/var/run/docker.sock -v $Home/Library/Caches:/root/.cache/ aquasec/trivy:0.57.0 image gitlabcicd00:latest 
   only: 
     - main
   tags:
     - Gitlab_EC2_runner
+
+push_image_to_ECR:
+  stage: push_to_Amazon_ECR
+  script:
+    - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 273354657022.dkr.ecr.eu-north-1.amazonaws.com 
+    - docker tag gitlabcicd00:latest 273354657022.dkr.ecr.eu-north-1.amazonaws.com/gitlabcicd00:latest  
+    - docker push 273354657022.dkr.ecr.eu-north-1.amazonaws.com/gitlabcicd00:latest
+  only:
+    - main
+  tags:
+    - Gitlab_EC2_runner
+
