@@ -43,6 +43,6 @@ docker_build_job:
   only:
     - main
   tags:
-    - Gitlab-EC2-runner
+    - Gitlab_EC2_runner
 
 
