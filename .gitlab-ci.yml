@@ -74,6 +74,6 @@ deploy_image_to_ECS:
     - echo "Deploying to AWS ECS"
     - aws ecs update-service --cluster cicd-ecs --service cicd-ecs-srv --force-new-deployment --region us-east-1
   only: 
-    -main
+    - main
   tags:
     - Gitlab-EC2-runner
