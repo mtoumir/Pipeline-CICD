@@ -4,7 +4,7 @@ stages:
   - docker_build
   - trivy_scan
   - push_to_Amazon_ECR
-  - deploy_to_Amazon ECS
+  - deploy_to_Amazon_ECS
 
 variables:
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" 
