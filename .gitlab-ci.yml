@@ -72,7 +72,7 @@ deploy_image_to_ECS:
   stage: deploy_to_Amazon_ECS
   script: 
     - echo "Deploying to AWS ECS"
-    - aws ecs update-service --cluster cicd-ecs --service cicd-ecs-srv --force-new-deployment --region us-east-1
+    - aws ecs update-service --cluster cicd-ecs --service cicd-ecs-srv --force-new-deployment --region eu-north-1
   only: 
     - main
   tags:
