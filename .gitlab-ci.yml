@@ -76,4 +76,4 @@ deploy_image_to_ECS:
   only: 
     - main
   tags:
-    - Gitlab-EC2-runner
+    - Gitlab_EC2_runner
